@@ -1,0 +1,35 @@
+<:Title>
+  Todos
+
+<:Body>
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Todos</h1>
+
+      <button e-click="check_all" disabled="{{ (incomplete == 0) }}">Complete {{ incomplete }} Todos</button>
+
+      <table class="table">
+        {{ _todos.each_with_index do |todo, index| }}
+          <tr
+            e-click="params._index = index"
+            class="{{ if current_index == index }}selected{{ end }}"
+          >
+            <td><input type="checkbox" checked="{{ todo._completed }}" /></td>
+            <td class="{{ if todo._completed }}complete{{ end }}">{{ todo._label }}</td>
+            <td><button e-click="todo.destroy">X</button></td>
+          </tr>
+        {{ end }}
+      </table>
+
+      <form e-submit="add_todo" role="form">
+        <:fields:text label="Add Todo" value="{{ page._new_todo._label }}" />
+      </form>
+    </div>
+    <div class="col-md-8">
+      {{ if current_todo }}
+        <h1>{{ current_todo._label }}</h1>
+
+        <:fields:textarea value="{{ current_todo._description }}" />
+      {{ end }}
+    </div>
+  </div>
