@@ -2,6 +2,17 @@
   About
 
 <:Body>
-  <h1>About</h1>
 
-  <p>About page...</p>
+  {{ if _todos.size > 0 }}
+    <p>Here</p>
+  {{ end }}
+
+  {{ _todos.size }}
+
+  {{ filtered_todos.size }}
+
+  <hr />
+
+  <a href="/about">All</a><br />
+  <a href="/about?filter=active">Active</a><br />
+  <a href="/about?filter=completed">Completed</a>

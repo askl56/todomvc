@@ -5,6 +5,18 @@ module Main
 
     def index
       new
+
+      # Setup document click listener
+      `$(document).on('click.editing', function(event) {`
+        if `!$(event.target).parents('.todo-item').get(0)`
+          clear_editing
+        end
+      `})`
+    end
+
+    def before_index_remove
+      # remove document click listener
+      `$(document).off('click.editing')`
     end
 
     def new
@@ -15,10 +27,24 @@ module Main
       params._index.to_i
     end
 
+    def filtered_todos
+      case params._filter
+      when 'completed'
+        val = store._todos.where(completed: true)
+      when 'active'
+        val = store._todos.where({'$or' => [{completed: false}, {completed: nil}]})
+      else
+        val = store._todos
+      end
+
+      val
+    end
+
     def add_todo
-      page._new_todo.save! do
-        flash._notices << "Todo Added"
-        new
+      if page._new_todo._label.present?
+        page._new_todo.save! do
+          new
+        end
       end
     end
 
@@ -30,12 +56,43 @@ module Main
       _todos.size - complete
     end
 
-    def check_all
-      TodoTasks.check_all
+    def clear_editing
+      _todos.fetch_each do |todo|
+        todo.stop_editing
+      end
     end
 
-    def current_todo
-      _todos[current_index]
+    def clear_completed
+      _todos.fetch_each do |todo|
+        if todo._completed
+          todo.destroy
+        end
+      end
+    end
+
+    def set_all_to(val)
+      _todos.fetch_each do |todo|
+        todo._completed = val
+      end
+    end
+
+    def all_complete
+      incomplete == 0
+    end
+
+    # Called when the complete all checkbox is checked.
+    def all_complete=(val)
+      set_all_to(val)
+    end
+
+    def edit(event)
+      event.stop!
+      attrs.parent.clear_editing
+      model.editing = true
+    end
+
+    def stop_editing
+      model.stop_editing
     end
 
     private

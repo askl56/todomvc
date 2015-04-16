@@ -2,28 +2,14 @@
   {{ view main_path, "title", {controller_group: 'main'} }}
 
 <:Body>
-  <div class="container">
-    <div class="header">
-      <ul class="nav nav-pills pull-right">
-        <:nav href="/">Home</:nav>
-        <:nav href="/about">About</:nav>
-        <:user_templates:menu />
-      </ul>
-      <h3 class="text-muted">Todos Demo</h3>
-    </div>
 
-    <:volt:notices />
+  {{ view main_path, 'body', {controller_group: 'main'} }}
 
-    {{ view main_path, 'body', {controller_group: 'main'} }}
-
-    <div class="footer">
-      <p>&copy; Company {{ Time.now.year }}</p>
-    </div>
-
-  </div>
-
-<:Nav>
-  <li class="{{ if active_tab? }}active{{ end }}">
-    <a href="{{ attrs.href }}">{{ yield }}</a>
-  </li>
-
+	<footer class="info">
+		<p>Double-click to edit a todo</p>
+		<!-- Remove the below line ↓ -->
+		<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+		<!-- Change this out with your name and url ↓ -->
+		<p>Created by <a href="http://todomvc.com">you</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>

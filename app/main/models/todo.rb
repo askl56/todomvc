@@ -1,3 +1,10 @@
 class Todo < Volt::Model
-  validate :label, length: 2
+  reactive_accessor :editing
+
+  def stop_editing
+    self.editing = false
+    if _label.blank?
+      destroy
+    end
+  end
 end

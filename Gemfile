@@ -2,16 +2,6 @@ source 'https://rubygems.org'
 
 gem 'volt', path: '/Users/ryanstout/Sites/volt/volt'
 
-# The following gem's are optional for themeing
-# Twitter bootstrap
-gem 'volt-bootstrap', '~> 0.0.10'
-
-# Simple theme for bootstrap, remove to theme yourself.
-gem 'volt-bootstrap_jumbotron_theme', '~> 0.1.0'
-
-# User templates for login, signup, and logout menu.
-gem 'volt-user_templates', '~> 0.1.3'
-
 group :development, :test do
   # Testing dependencies
   gem 'rspec', '~> 3.2.0'
