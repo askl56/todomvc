@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'volt', path: '/Users/ryanstout/Sites/volt/volt'
+gem 'volt', '0.9.0.pre6'
 
 group :development, :test do
   # Testing dependencies

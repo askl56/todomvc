@@ -30,14 +30,12 @@ module Main
     def filtered_todos
       case params._filter
       when 'completed'
-        val = store._todos.where(completed: true)
+        store._todos.where(completed: true)
       when 'active'
-        val = store._todos.where({'$or' => [{completed: false}, {completed: nil}]})
+        store._todos.where({'$or' => [{completed: false}, {completed: nil}]})
       else
-        val = store._todos
+        store._todos
       end
-
-      val
     end
 
     def add_todo
