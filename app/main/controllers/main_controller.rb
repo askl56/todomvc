@@ -20,13 +20,10 @@ module Main
     end
 
     def new
-      page._new_todo = store._todos.buffer
+      page._new_todo!._label = ''
     end
 
-    def current_index
-      params._index.to_i
-    end
-
+    # Use the route to filter which todos we're showing
     def filtered_todos
       case params._filter
       when 'completed'
@@ -40,9 +37,8 @@ module Main
 
     def add_todo
       if page._new_todo._label.present?
-        page._new_todo.save! do
-          new
-        end
+        _todos << {label: page._new_todo._label.strip}
+        new
       end
     end
 
@@ -54,12 +50,14 @@ module Main
       _todos.size - complete
     end
 
+    # Stop editing on each todo
     def clear_editing
       _todos.fetch_each do |todo|
         todo.stop_editing
       end
     end
 
+    # Remove all completed
     def clear_completed
       _todos.fetch_each do |todo|
         if todo._completed
@@ -74,6 +72,7 @@ module Main
       end
     end
 
+    # Binding for if the all complete checkbox shoudl be checked.
     def all_complete
       incomplete == 0
     end

@@ -1,4 +1,12 @@
-# Place your app's docs here.
+# Demo Todos App
 
-## New to Volt?
-Be sure to read the volt docs at http://docs.voltframework.com
+This app is an example using the [TodoMVC project](http://todomvc.com/)
+
+To Run, start mongodb in one terminal:
+
+    mongod
+
+Then run the project:
+
+    bundle install
+    bundle exec volt server

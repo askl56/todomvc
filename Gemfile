@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'volt', '0.9.0.pre6'
+gem 'volt', '0.9.0.pre7'
 
 group :development, :test do
   # Testing dependencies

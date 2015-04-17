@@ -1,9 +1,7 @@
 <:Title>
-  Todos
+  Todos Demo App
 
 <:Body>
-
-
 	<section class="todoapp">
 		<header class="header">
       <:volt:notices />
@@ -19,7 +17,7 @@
       	<label for="toggle-all">Mark all as complete</label>
       	<ul class="todo-list">
           {{ filtered_todos.each do |todo| }}
-            <:todo model="{{ todo }}" parent="{{ self }}">
+            <:todo model="{{ todo }}" parent="{{ self }}" />
           {{ end }}
       	</ul>
 
@@ -38,7 +36,6 @@
   		</footer>
     {{ end }}
 	</section>
-
 
 <:Todo>
 	<li class="{{ if _completed }}completed{{ end }} {{ if editing }}editing{{ end }} todo-item">
