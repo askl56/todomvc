@@ -37,5 +37,4 @@ Volt.configure do |config|
 
   # Use username instead of email as the login
   # config.public.auth.use_username = true
-
 end

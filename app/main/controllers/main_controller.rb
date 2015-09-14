@@ -8,9 +8,7 @@ module Main
 
       # Setup document click listener
       `$(document).on('click.editing', function(event) {`
-        if `!$(event.target).parents('.todo-item').get(0)`
-          clear_editing
-        end
+      clear_editing if `!$(event.target).parents('.todo-item').get(0)`
       `})`
     end
 
@@ -29,7 +27,7 @@ module Main
       when 'completed'
         store._todos.where(completed: true)
       when 'active'
-        store._todos.where({'$or' => [{completed: false}, {completed: nil}]})
+        store._todos.where('$or' => [{ completed: false }, { completed: nil }])
       else
         store._todos
       end
@@ -37,13 +35,13 @@ module Main
 
     def add_todo
       if page._new_todo._label.present?
-        _todos << {label: page._new_todo._label.strip}
+        _todos << { label: page._new_todo._label.strip }
         new
       end
     end
 
     def complete
-      _todos.count {|v| v._completed }
+      _todos.count(&:_completed)
     end
 
     def incomplete
@@ -52,17 +50,13 @@ module Main
 
     # Stop editing on each todo
     def clear_editing
-      _todos.fetch_each do |todo|
-        todo.stop_editing
-      end
+      _todos.fetch_each(&:stop_editing)
     end
 
     # Remove all completed
     def clear_completed
       _todos.fetch_each do |todo|
-        if todo._completed
-          todo.destroy
-        end
+        todo.destroy if todo._completed
       end
     end
 

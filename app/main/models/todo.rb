@@ -6,8 +6,6 @@ class Todo < Volt::Model
     self.editing = false
 
     # If the edit removed the label, delete the item
-    if _label.blank?
-      destroy
-    end
+    destroy if _label.blank?
   end
 end
